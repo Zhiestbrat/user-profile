@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: rootroot
+    driver-class-name: org.postgresql.Driver
+    type: org.springframework.jdbc.datasource.SimpleDriverDataSource
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type: trace
