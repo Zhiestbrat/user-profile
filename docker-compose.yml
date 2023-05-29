@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  #User-Profile-Service
+  user-profile-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: user-profile-service
+    ports:
+      - '8080:8080'
+    depends_on:
+      - postgres-db
+  #Postgres
+  postgres-db:
+    image: postgres:15
+    container_name: postgres_container
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data/postgres-db-data:/var/lib/postgres/data
+  #pgAdmin 4
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - '8888:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    depends_on:
+      - postgres-db
+    volumes:
+      - ./data/pgadmin:/var/lib/pgadmin
