@@ -11,6 +11,9 @@ on:
 jobs:
   deploy_last_artifact:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       - name: Checkout
