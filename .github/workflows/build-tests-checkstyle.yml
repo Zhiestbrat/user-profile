@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'feature/**'
+      - 'bugfix/**'
 jobs:
   build-n-tests-n-checkstyle:
     runs-on: ubuntu-latest
