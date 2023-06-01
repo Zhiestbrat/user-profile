@@ -4,7 +4,7 @@ name: Build User-Profile service
 on:
   push:
     branches:
-      - feature
+      - 'feature/**'
 jobs:
   build-n-tests-n-checkstyle:
     runs-on: ubuntu-latest
