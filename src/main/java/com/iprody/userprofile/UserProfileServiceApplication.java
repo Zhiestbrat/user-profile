@@ -1,6 +1,5 @@
 package com.iprody.userprofile;
 
-import brave.Tracer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
@@ -17,8 +16,6 @@ import org.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration;
 public class UserProfileServiceApplication {
 
     private static final Logger LOGGER = LogManager.getLogger(UserProfileServiceApplication.class);
-
-    private final Tracer tracer;
 
     /**
      * @param args The command-line arguments passed to the program
