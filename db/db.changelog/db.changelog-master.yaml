@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
-      file: db/changelog/init-user.sql
+      file: db/changelog/changeset/init-user.sql
+  - include:
+      file: db/changelog/changeset/init-user_details.sql

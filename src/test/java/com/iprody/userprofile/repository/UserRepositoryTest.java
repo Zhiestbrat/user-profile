@@ -1,6 +1,6 @@
-package com.iprody.userprofile.profileservice.repository;
+package com.iprody.userprofile.repository;
 
-import com.iprody.userprofile.profileservice.domain.User;
+import com.iprody.userprofile.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
