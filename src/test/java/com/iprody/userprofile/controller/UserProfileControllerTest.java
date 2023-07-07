@@ -36,17 +36,10 @@ import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = UserProfileController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -138,6 +131,53 @@ public class UserProfileControllerTest {
                 .lastName(updatedUserRequest.getLastName())
                 .email(updatedUserRequest.getEmail())
                 .userDetails(updatedUserDetails)
+                .build();
+
+        userWithUpdatedDetails = UserResponse.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .telegramId(updatedUserDetails.getTelegramId())
+                .mobilePhone(updatedUserDetails.getMobilePhone())
+                .build();
+
+        updatedUserResponse = UserResponse.builder()
+                .id(updatedUser.getId())
+                .firstName(updatedUser.getFirstName())
+                .lastName(updatedUser.getLastName())
+                .email(updatedUser.getEmail())
+                .mobilePhone(updatedUserDetails.getMobilePhone())
+                .telegramId(updatedUserDetails.getTelegramId())
+                .build();
+
+        updatedUserDetailsRequest = UserDetailsRequest.builder()
+                .telegramId(updatedUserDetails.getTelegramId())
+                .mobilePhone(updatedUserDetails.getMobilePhone())
+                .build();
+
+        userDetailsRequest = UserDetailsRequest.builder()
+                .telegramId(userDetails.getTelegramId())
+                .mobilePhone(userDetails.getMobilePhone())
+                .build();
+
+        updatedUserRequest = UserRequest.builder()
+                .firstName("Steve")
+                .lastName("Jobs")
+                .email("steve.j@apple.com")
+                .build();
+
+        updatedUser = User.builder()
+                .id(1L)
+                .firstName(updatedUserRequest.getFirstName())
+                .lastName(updatedUserRequest.getLastName())
+                .email(updatedUserRequest.getEmail())
+                .build();
+
+        updatedUserDetails = UserDetails.builder()
+                .mobilePhone("2355678900")
+                .telegramId("@jobs")
+                .user(user)
                 .build();
 
         userWithUpdatedDetails = UserResponse.builder()
