@@ -25,4 +25,11 @@ logging:
 management:
   tracing:
     sampling:
-     probability: 1.0
+      probability: 1.0
+
+springdoc:
+  packagesToScan: controller
+  api-docs:
+    path: /api/json
+  swagger-ui:
+    path: /api/ui.html

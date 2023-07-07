@@ -3,3 +3,9 @@ databaseChangeLog:
       file: db/changelog/changeset/init-user.sql
   - include:
       file: db/changelog/changeset/init-user_details.sql
+  - include:
+      file: db/changelog/changeset/20230628_37_unique_constraints.sql
+  - include:
+      file: db/changelog/changeset/20230703_37_add_user_id_to_user_details.sql
+  - include:
+      file: db/changelog/changeset/20230707_37_add_user_details_foreign_key_constraint.sql

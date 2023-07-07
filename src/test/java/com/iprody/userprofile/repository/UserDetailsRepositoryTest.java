@@ -35,7 +35,7 @@ public class UserDetailsRepositoryTest {
     void shouldGenerateId() {
         UserDetails userDetails = UserDetails.builder()
                 .telegramId("@testId")
-                .mobilePhone("+1-234-567-89-00")
+                .mobilePhone("2345678900")
                 .build();
         UserDetails saveUserDetails = userDetailsRepository.save(userDetails);
         assertThat(saveUserDetails.getId()).isNotNull();
@@ -45,7 +45,7 @@ public class UserDetailsRepositoryTest {
     void shouldReturnSavedUser() {
         UserDetails saveUserDetails = userDetailsRepository.save(UserDetails.builder()
                 .telegramId("@youBetterPassTheTest")
-                .mobilePhone("+38-063-123-45-67")
+                .mobilePhone("380631234567")
                 .build());
         Long userDetailsId = saveUserDetails.getId();
         Optional<UserDetails> userDetailsOptional = userDetailsRepository.findById(userDetailsId);

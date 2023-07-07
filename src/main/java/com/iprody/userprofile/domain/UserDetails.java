@@ -25,10 +25,10 @@ public class UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "telegram_id", unique = true, nullable = false)
+    @Column(name = "telegram_id")
     private String telegramId;
 
-    @Column(name = "mobile_phone", nullable = false)
+    @Column(name = "mobile_phone")
     private String mobilePhone;
 
     @OneToOne

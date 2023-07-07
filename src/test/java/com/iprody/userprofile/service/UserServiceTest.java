@@ -54,10 +54,9 @@ class UserServiceTest {
 
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
 
-        Optional<User> foundUser = userService.findUser(user.getId());
+        User foundUser = userService.findUser(user.getId());
 
-        assertTrue(foundUser.isPresent());
-        assertEquals(user, foundUser.get());
+        assertEquals(user, foundUser);
     }
 
     @Test
@@ -68,13 +67,13 @@ class UserServiceTest {
                 .email("user@iprody.com")
                 .build();
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        Optional<User> result = userService.findUser(user.getId());
+        User result = userService.findUser(user.getId());
 
-        assertEquals(user, result.get());
+        assertEquals(user, result);
     }
 
     @Test
-    void shouldThrowExceptionWhenUserIsNotFound() {
+    void shouldThrowExceptionWhenUserNotFound() {
         User existingUser = User.builder()
                 .id(133L)
                 .firstName("iProdyUser")
@@ -82,7 +81,7 @@ class UserServiceTest {
                 .email("user@iprody.com")
                 .build();
         when(userRepository.findById(existingUser.getId())).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> userService.updateUser(existingUser));
+        assertThrows(EntityNotFoundException.class, () -> userService.findUser(133L));
     }
 
     @Test
@@ -96,7 +95,7 @@ class UserServiceTest {
         when(userRepository.findById(1L)).thenReturn(Optional.of(existingUser));
         when(userRepository.saveAndFlush(existingUser)).thenReturn(existingUser);
 
-        User updatedUser = userService.updateUser(User.builder()
+        User updatedUser = userService.updateUser(1L, User.builder()
                 .id(1L)
                 .firstName("iProdyUser")
                 .lastName("iProdyPass")

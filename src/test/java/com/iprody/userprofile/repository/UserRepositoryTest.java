@@ -1,6 +1,9 @@
 package com.iprody.userprofile.repository;
 
-import com.iprody.userprofile.domain.User;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,14 +12,12 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.iprody.userprofile.domain.User;
+import com.iprody.userprofile.domain.UserDetails;
 
 @SpringBootTest
 @Testcontainers
-public class UserRepositoryTest {
+class UserRepositoryTest {
 
     private static final PostgreSQLContainer<?> POSTGRES_CONTAINER = new PostgreSQLContainer<>("postgres:15");
 
@@ -52,5 +53,25 @@ public class UserRepositoryTest {
         Long userId = saveUser.getId();
         Optional<User> userOptional = userRepository.findById(userId);
         assertThat(userOptional).isPresent();
+    }
+
+    @Test
+    void shouldReturnSavedUserWithDetails() {
+        User saveUser = userRepository.save(User.builder()
+                .firstName("iProdyUser")
+                .lastName("iProdyPass")
+                .email("user100@iprody.com")
+                .userDetails(
+                        UserDetails.builder()
+                                .telegramId("@example")
+                                .build()
+                )
+                .build());
+
+        Long userId = saveUser.getId();
+        Optional<User> userOptional = userRepository.findById(userId);
+        assertThat(userOptional).isPresent();
+        assertThat(userOptional.map(User::getUserDetails)).isPresent();
+        assertThat(userOptional.map(User::getUserDetails).map(UserDetails::getTelegramId)).hasValue("@example");
     }
 }

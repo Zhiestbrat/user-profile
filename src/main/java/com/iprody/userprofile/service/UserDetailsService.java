@@ -25,6 +25,7 @@ public class UserDetailsService {
         UserDetails existingUserDetails = user.getUserDetails();
         existingUserDetails.setTelegramId(userDetails.getTelegramId());
         existingUserDetails.setMobilePhone(userDetails.getMobilePhone());
+        existingUserDetails.setUser(user);
         return userDetailsRepository.saveAndFlush(existingUserDetails);
     }
 
