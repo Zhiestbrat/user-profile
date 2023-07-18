@@ -28,7 +28,7 @@ management:
       probability: 1.0
 
 springdoc:
-  packagesToScan: controller
+  packagesToScan: com.iprody.userprofile.controller
   api-docs:
     path: /api/json
   swagger-ui:
