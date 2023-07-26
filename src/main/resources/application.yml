@@ -6,7 +6,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     type: org.springframework.jdbc.datasource.SimpleDriverDataSource
   liquibase:
-    change-log: file:.db/db.changelog/db.changelog-master.yaml
+    change-log: file:db/db.changelog/db.changelog-master.yaml
     enabled: true
   jpa:
     show-sql: true

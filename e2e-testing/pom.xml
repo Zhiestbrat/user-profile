@@ -6,7 +6,7 @@
     <groupId>com.iprody.userprofile</groupId>
     <artifactId>e2e-testing</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <distributionManagement>
         <repository>
@@ -137,10 +137,6 @@
                     <suppressionsLocation>../checks/checkstyle-xpath-suppressions.xml</suppressionsLocation>
                     <propertyExpansion>config_loc=${basedir}/../checks</propertyExpansion>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
