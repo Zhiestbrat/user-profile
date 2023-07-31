@@ -18,7 +18,5 @@ public class UserProfileServiceApplication {
 
         SpringApplication.run(UserProfileServiceApplication.class, args);
 
-        
     }
-
 }

@@ -15,6 +15,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         ddl-auto: update
+
 logging:
   level:
     org:
@@ -23,6 +24,16 @@ logging:
         type: trace
 
 management:
+  server:
+    port: 8088
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus, liquibase
+  # Show details of health endpoint
+  endpoint:
+    health:
+      show-details: always
   tracing:
     sampling:
       probability: 1.0
@@ -33,3 +44,4 @@ springdoc:
     path: /api/json
   swagger-ui:
     path: /api/ui.html
+  show-actuator: true

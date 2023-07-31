@@ -64,6 +64,7 @@ class UserRepositoryTest {
                 .userDetails(
                         UserDetails.builder()
                                 .telegramId("@example")
+                                .mobilePhone("9050055")
                                 .build()
                 )
                 .build());
@@ -73,5 +74,6 @@ class UserRepositoryTest {
         assertThat(userOptional).isPresent();
         assertThat(userOptional.map(User::getUserDetails)).isPresent();
         assertThat(userOptional.map(User::getUserDetails).map(UserDetails::getTelegramId)).hasValue("@example");
+        assertThat(userOptional.map(User::getUserDetails).map(UserDetails::getMobilePhone)).hasValue("9050055");
     }
 }
