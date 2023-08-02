@@ -20,6 +20,8 @@
         <java.version>20</java.version>
         <org.projectlombok.version>1.18.26</org.projectlombok.version>
         <cucumber.version>7.13.0</cucumber.version>
+        <jackson-databind-nullable-version>0.2.6</jackson-databind-nullable-version>
+        <org.springdoc.version>2.1.0</org.springdoc.version>
     </properties>
 
     <parent>
@@ -106,6 +108,11 @@
             <version>5.9.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+            <version>${jackson-databind-nullable-version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -137,6 +144,37 @@
                     <suppressionsLocation>../checks/checkstyle-xpath-suppressions.xml</suppressionsLocation>
                     <propertyExpansion>config_loc=${basedir}/../checks</propertyExpansion>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <!-- RELEASE_VERSION -->
+                <version>6.6.0</version>
+                <!-- /RELEASE_VERSION -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>${project.basedir}/src/main/resources/openapi.json</inputSpec>
+                            <generatorName>java</generatorName>
+                            <skipValidateSpec>true</skipValidateSpec>
+                            <apiPackage>com.iprody.userprofile.e2e.api</apiPackage>
+                            <modelPackage>com.iprody.userprofile.e2e.model</modelPackage>
+                            <invokerPackage>com.iprody.userprofile.e2e.invoker</invokerPackage>
+                            <generateApiTests>false</generateApiTests>
+                            <generateModelTests>false</generateModelTests>
+                            <configOptions>
+                                <dateLibrary>java8</dateLibrary>
+                                <library>resttemplate</library>
+                                <interfaceOnly>true</interfaceOnly>
+                                <generateClientAsBean>true</generateClientAsBean>
+                                <useJakartaEe>true</useJakartaEe>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

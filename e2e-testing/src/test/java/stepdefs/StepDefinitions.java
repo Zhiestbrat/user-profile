@@ -3,7 +3,6 @@ package stepdefs;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +12,7 @@ class IsItFriday {
     }
 }
 
-@CucumberContextConfiguration
+
 public class StepDefinitions {
     private String today;
     private String actualAnswer;

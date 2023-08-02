@@ -9,3 +9,4 @@ target/
 *.iml
 *.ipr
 /data/pgadmin/pgadmin4.db
+/e2e-testing/reports/
