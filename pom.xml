@@ -23,6 +23,7 @@
         <org.apache.logging.log4j.version>2.20.0</org.apache.logging.log4j.version>
         <org.testcontainers.version>1.18.1</org.testcontainers.version>
         <org.springdoc.version>2.1.0</org.springdoc.version>
+        <io.zipkin.brave.version>5.16.0</io.zipkin.brave.version>
     </properties>
 
     <parent>
@@ -31,6 +32,18 @@
         <version>3.0.6</version>
         <relativePath/>
     </parent>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-tracing-bom</artifactId>
+                <version>${micrometer-tracing.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <!-- Spring Boot -->
@@ -118,13 +131,6 @@
         <!-- Micrometer Tracing -->
         <dependency>
             <groupId>io.micrometer</groupId>
-            <artifactId>micrometer-tracing-bom</artifactId>
-            <version>${micrometer-tracing.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.micrometer</groupId>
             <artifactId>micrometer-tracing</artifactId>
         </dependency>
         <dependency>
@@ -134,6 +140,10 @@
         <dependency>
             <groupId>io.zipkin.reporter2</groupId>
             <artifactId>zipkin-reporter-brave</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-sender-urlconnection</artifactId>
         </dependency>
         <!-- Micrometer Tracing Tests -->
         <dependency>
@@ -197,6 +207,11 @@
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
             <version>${org.springdoc.version}</version>
+        </dependency>
+        <!-- Actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
 

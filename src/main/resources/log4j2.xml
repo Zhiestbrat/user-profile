@@ -6,7 +6,7 @@
         </Console>
         <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
             <PatternLayout>
-                <Pattern>trace-id=%mdc{traceId} span-id=%mdc{spanId} %d{HH:mm:ss.SSS}
+                <Pattern>traceId=%mdc{trace_id} spanId=%mdc{span_id} %d{HH:mm:ss.SSS}
                     [%thread] %-5level %logger{36} -%kvp- %msg%n</Pattern>
             </PatternLayout>
             <Policies>

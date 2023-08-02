@@ -1,5 +1,7 @@
 package com.iprody.userprofile.controller;
 
+import brave.Span;
+import brave.Tracer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iprody.userprofile.domain.User;
@@ -11,7 +13,9 @@ import com.iprody.userprofile.mapper.UserMapper;
 import com.iprody.userprofile.repository.UserSpecification;
 import com.iprody.userprofile.service.UserDetailsService;
 import com.iprody.userprofile.service.UserService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,10 +32,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -60,6 +69,9 @@ public class UserProfileControllerTest {
     @MockBean
     private UserMapper userMapper;
 
+    @MockBean
+    private Tracer tracer;
+
     private User user;
     private UserDetails userDetails;
     private UserRequest userRequest;
@@ -75,6 +87,7 @@ public class UserProfileControllerTest {
     private UserResponse userWithUpdatedDetails;
 
     private ObjectMapper objectMapper;
+    private HttpServletResponse httpServletResponse;
 
     @BeforeEach
     public void setup() {
@@ -204,6 +217,8 @@ public class UserProfileControllerTest {
                 .build();
 
         objectMapper = new ObjectMapper();
+
+        httpServletResponse = new MockHttpServletResponse();
     }
 
     @Test

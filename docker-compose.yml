@@ -10,6 +10,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_container:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+      - MANAGEMENT.ZIPKIN.TRACING.ENDPOINT=http://zipkin:9411/api/v2/spans
     links:
       - postgres-db
     ports:
@@ -43,3 +44,12 @@ services:
       - postgres-db
     volumes:
       - ./data/pgadmin:/var/lib/pgadmin
+  #zipkin
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin_monitoring
+    restart: always
+    ports:
+      - '9411:9411'
+    depends_on:
+      - user-profile-service
