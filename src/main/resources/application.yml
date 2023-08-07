@@ -42,9 +42,10 @@ management:
       endpoint: http://zipkin:9411/api/v2/spans
 
 springdoc:
+  show-actuator: true
   packagesToScan: com.iprody.userprofile.controller
   api-docs:
     path: /api/json
   swagger-ui:
     path: /api/ui.html
-  show-actuator: true
+

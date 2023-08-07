@@ -64,6 +64,6 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public ApiError handleError() {
-        return new ApiError(HttpStatus.NOT_FOUND.value(), "Not found");
+        return new ApiError(HttpStatus.NOT_FOUND.value(), "Not Found");
     }
 }
