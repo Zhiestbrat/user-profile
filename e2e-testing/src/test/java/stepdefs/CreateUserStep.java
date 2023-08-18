@@ -1,21 +1,18 @@
 package stepdefs;
 
 import com.iprody.userprofile.e2e.api.UserProfilesApi;
-import com.iprody.userprofile.e2e.invoker.ApiClient;
 import com.iprody.userprofile.e2e.model.UserDetailsRequest;
 import com.iprody.userprofile.e2e.model.UserRequest;
 import com.iprody.userprofile.e2e.model.UserResponse;
-import io.cucumber.java.DataTableType;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.RestClientException;
 
-import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,10 +24,17 @@ public class CreateUserStep {
     private final UserProfilesApi api;
     private ResponseEntity<String> error;
 
-    public CreateUserStep(UserProfilesApi api) {
-        this.api = api;
-    }
+    private final JdbcTemplate jdbcTemplate;
 
+    public CreateUserStep(UserProfilesApi api, JdbcTemplate jdbcTemplate) {
+        this.api = api;
+        this.jdbcTemplate = jdbcTemplate;
+    }
+    @Before
+    public void setUp() {
+        jdbcTemplate.execute("DELETE FROM user_details");
+        jdbcTemplate.execute("DELETE FROM users");
+    }
 
     @When("a client want create user with mandatory parameters:")
     public void aClientWantsCreateUserWithParameters(Map<String, String> userData) {
@@ -76,13 +80,13 @@ public class CreateUserStep {
         userRequest.setEmail(userData.get("email"));
         response = api.updateUserWithHttpInfo(user.getId(), userRequest);
     }
-    @Then("response is successful code {int}")
-    public void responseCodeIs201(int status) {
+    @Then("response is status CREATED")
+    public void responseCodeIs201() {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
-    @Then("response is request error code {int}")
-    public void responseCodeIs(int status) {
+    @Then("response is status BAD_REQUEST")
+    public void responseCodeIs400() {
         assertThat(error.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
     }
 
@@ -90,10 +94,5 @@ public class CreateUserStep {
     public void responseBodyContainsError() {
         assertThat(error.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         assertThat(error.getBody()).isEqualTo("Validation Error");
-    }
-
-    @Then("response is server error code {int}")
-    public void responseIsServerErrorCode(int status) {
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

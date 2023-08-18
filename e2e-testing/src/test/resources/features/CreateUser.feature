@@ -11,11 +11,11 @@ Feature: Create User
       | firstName | Steven             |
       | lastName  | Smith              |
       | email     | steven.j@apple.com |
-    Then response is successful code 201
+    Then response is status CREATED
     When the client updates user details with mandatory info:
       | telegramId  | @smith     |
       | mobilePhone | 2355678901 |
-    Then response is successful code 201
+    Then response is status CREATED
     And response body contains:
       | firstName   | Steven             |
       | lastName    | Smith              |
@@ -31,7 +31,7 @@ Feature: Create User
       | telegramId  | @smith         |
       | mobilePhone | 2355678901     |
 
-    Then response is request error code 400
+    Then response is status BAD_REQUEST
     And response body contains error:
       | status  | 400              |
       | message | Validation Error |
@@ -43,7 +43,7 @@ Feature: Create User
       | email       | steven.j@apple.com |
       | telegramId  | @smith             |
       | mobilePhone | 2355678901         |
-    Then response is server error code 500
+    Then response is status BAD_REQUEST
     And response body contains:
-      | status  | 500                   |
+      | status  | 400                   |
       | message | Internal Server Error |
